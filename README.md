@@ -1,199 +1,195 @@
-# Documentação do projeto de PHP sobre Pet Shop
+# DOCUMENTAÇÃO TÉCNICA: PLATAFORMA PETHEALTH & CARE
 
-## 1. *Introdução e Justificativa* (O contexto do problema)
-    - O mercado pet no Brasil é um dos setores que mais cresce anualmente. Pequenos e médios petshops enfrentam dificuldades diárias no gerenciamento de suas operações devido ao uso de métodos arcaicos (como agendas de papel ou planilhas descentralizadas). Isso gera perda de informações, conflitos de horários nos banhos/tosas e falta de histórico dos animais.
+## 1. Introdução e Justificativa
 
-    - O desenvolvimento deste sistema web baseado em PHP justifica-se pela necessidade de centralizar a gestão de clientes, pets e agendamentos em uma plataforma única, acessível e de baixo custo de manutenção, otimizando o tempo dos funcionários e melhorando a experiência do cliente final.
+O gerenciamento de estabelecimentos que unificam serviços estéticos (petshop) e atendimentos médicos (clínica veterinária) exige um controle operacional rigoroso. A maioria dos sistemas acadêmicos foca em modelos simplificados que atendem apenas cães e gatos, ignorando a crescente demanda por pets não-convencionais (aves, répteis e pequenos roedores), que necessitam de cuidados e restrições específicas durante o manejo.
 
-## 2. *Objetivos* (Geral e Específicos)
-- Desenvolver um sistema web dinâmico para gerenciamento de petshops utilizando a linguagem PHP, banco de dados MySQL e tecnologias de front-end (HTML5, CSS3).
+Os principais problemas enfrentados por esses negócios são operacionais: a falta de acompanhamento visual do status do animal no estabelecimento (se ele já tomou banho, se está aguardando o tutor), a ausência de um canal direto de avisos operacionais entre veterinários e tosadores, e o esquecimento de clientes recorrentes que deixam de frequentar o local.
 
-    * Objetivos Específicos:
-        - Implementar um sistema de autenticação seguro para administradores e clientes.
-        - Criar um módulo de cadastro e controle de tutores (clientes) e seus respectivos animais (pets).
-        - Desenvolver uma agenda interativa para marcação de serviços (banho, tosa, consultas).
-        - Garantir a persistência e integridade dos dados através de boas práticas com Banco de Dados Relacional.
+> **Justificativa:** A plataforma **PetHealth & Care** foi desenvolvida para centralizar a gestão de clínicas e petshops sob o modelo "concierge" (onde a equipe interna gerencia os dados). O sistema se justifica por entregar, através de uma arquitetura limpa em PHP e PostgreSQL, ferramentas práticas de retenção de clientes por análise de dados, um prontuário operacional de avisos para a segurança do animal, uma linha do tempo visual para o acompanhamento dos serviços e um registro de auditoria interna, elevando o nível de controle do estabelecimento sem elevar a complexidade de desenvolvimento.
 
+---
 
-## 3. *Definição de Escopo* (O que o sistema faz e o que ele não faz)
-    * O que será desenvolvido:
-        - Cadastro, edição e exclusão de Clientes e Pets (CRUD completo).
-        - Agendamento de serviços com controle de status (Pendente, Concluído, Cancelado).
-        - Painel administrativo para o funcionário visualizar a agenda do dia.
-        - Autenticação de usuários (Login/Logout) com níveis de acesso.
+## 2. Objetivos
 
-    * O que não será desenvolvido:
-        - Módulo de vendas de produtos (E-commerce).
-        - Integração com gateways de pagamento em cartão ou Pix (o pagamento é feito no balcão).
-        - Emissão de Nota Fiscal Eletrônica (NF-e). 
+### 2.1 Objetivo Geral
+Desenvolver um sistema web para gestão e acompanhamento de cuidados em clínicas veterinárias e petshops, utilizando PHP estruturado, persistência em banco de dados PostgreSQL através de PDO, e interfaces responsivas em HTML5 e CSS3.
 
-## 4. *Engenharia de Requisitos* (Requisitos Funcionais e Não-Funcionais)
-* Os requisitos dividem-se em Funcionais (as ações que o sistema deve executar) e Não-Funcionais (as características de qualidade, segurança e tecnologia do sistema).
+### 2.2 Objetivos Específicos
+* Implementar um sistema de autenticação seguro que separe as interfaces de cada membro da equipe (Recepcionistas, Veterinários, Tosadores) e dos clientes (Tutores).
+* Estruturar um banco de dados flexível capaz de registrar animais de múltiplas espécies (tradicionais e não-convencionais), com suporte a campos de observações críticas de comportamento e saúde.
+* Criar uma esteira de status para os agendamentos, permitindo vincular o profissional responsável e acompanhar o progresso do atendimento através de uma linha do tempo visual (Timeline).
+* Desenvolver um módulo gerencial (Dashboard) contendo indicadores financeiros (faturamento mensal) e estatísticos (serviço mais procurado do mês).
+* Construir um sistema automático de logs de atividades para auditoria interna das ações realizadas pelos funcionários.
+
+---
+
+## 3. Definição de Escopo
+
+### 3.1 Funcionalidades Inclusas (Escopo)
+* **Autenticação Multi-Nível:** Controle de login para equipe interna (com base em cargos: Veterinário, Tosador, Recepcionista) e tutores via sessões do PHP (`$_SESSION`).
+* **CRUD de Clientes e Pets:** Cadastro unificado de tutores e animais de qualquer espécie, contendo alertas visuais de comportamento (ex: "Ansioso", "Agressivo", "Requer Cuidado").
+* **Esteira de Atendimento (Timeline) por Profissional:** Atualização de agendamentos associados a um funcionário específico, transitando pelos status: *Agendado*, *Em Atendimento*, *Pronto para Retirada* e *Finalizado*.
+* **Mural Operacional de Alertas:** Registro de avisos internos sobre a rotina da clínica ou restrições de pets específicos em atendimento no dia.
+* **Dashboard Gerencial:** Cards com faturamento bruto, total de serviços prestados e exibição do serviço de maior demanda no mês corrente.
+* **Alerta de Retorno:** Listagem de animais ausentes do estabelecimento há mais de 20 dias com acionamento direto via API pública do WhatsApp.
+* **Upload de Fotos:** Upload de imagens de perfil para os pets, humanizando a interface.
+* **Log de Auditoria Interna:** Histórico automatizado e imutável que registra qual funcionário realizou qualquer alteração crítica no sistema.
+
+### 3.2 Funcionalidades Exclusas (Fora do Escopo)
+* Emissão de Notas Fiscais Eletrônicas (NF-e).
+* Sistema de Vendas de Produtos Físicos (Frente de Caixa / PDV).
+* Integração com gateways de pagamento ou maquininhas de cartão.
+
+---
+
+## 4. Engenharia de Requisitos
 
 ### 4.1 Requisitos Funcionais (RF)
 
-> **Regra de Negócio Central:** O cliente possui apenas permissão de leitura (visualização) no sistema. Toda e qualquer inserção, alteração ou exclusão de dados é de responsabilidade exclusiva dos funcionários/administradores (Modelo Concierge).
-
 | Código | Requisito Funcional | Descrição Detalhada | Nível de Acesso |
 | :--- | :--- | :--- | :--- |
-| **RF01** | Autenticação de Usuários | O sistema deve permitir o login diferenciando o Administrador (funcionário) do Cliente comum. | Ambos |
-| **RF02** | Gerenciamento de Tutores | O administrador deve ser capaz de Cadastrar, Listar, Editar e Excluir clientes (tutores). | Admin |
-| **RF03** | Gerenciamento de Pets | O administrador deve cadastrar e gerenciar os pets, obrigatoriamente vinculando cada animal a um tutor já cadastrado. | Admin |
-| **RF04** | Cadastro de Serviços | O administrador deve gerenciar o catálogo de serviços oferecidos pelo petshop (ex: Banho, Tosa, Consulta) e seus respectivos valores. | Admin |
-| **RF05** | Agendamento de Serviços | O administrador deve registrar os agendamentos, escolhendo o Pet, o Serviço, a Data e o Horário do atendimento. | Admin |
-| **RF06** | Controle de Status | O administrador deve poder alterar o status de um agendamento para: *Pendente*, *Concluído* ou *Cancelado*. | Admin |
-| **RF07** | Dashboard Operacional | O administrador deve visualizar, logo após o login, uma tela com os agendamentos programados para o dia atual. | Admin |
-| **RF08** | Painel do Tutor | O cliente, ao logar, deve visualizar apenas o histórico de serviços e os próximos agendamentos dos seus próprios pets. | Cliente |
+| **RF01** | Autenticação Personalizada | O sistema deve validar o acesso diferenciando as interfaces com base nos cargos da equipe interna e nos tutores. | Todos |
+| **RF02** | Gerenciamento de Tutores | O sistema deve permitir o cadastro, edição, listagem e exclusão de clientes. | Recepcionista / Admin |
+| **RF03** | Registro Multiespécies | O sistema deve cadastrar pets registrando Nome, Idade, Espécie (livre), Foto de perfil e marcadores de comportamento. | Equipe Interna |
+| **RF04** | Catálogo de Serviços | O sistema deve gerenciar os serviços oferecidos, divididos entre as categorias 'Clínica' e 'Estética'. | Recepcionista / Admin |
+| **RF05** | Esteira com Responsável | O sistema deve criar agendamentos, associar o funcionário executor (Veterinário/Tosador) e atualizar a Timeline do serviço. | Equipe Interna |
+| **RF06** | Quadro de Avisos Operacionais | Permite à equipe publicar notas técnicas internas ou avisos sobre restrições de atendimento dos animais do dia. | Equipe Interna |
+| **RF07** | Dashboard de Indicadores | O sistema deve exibir em tempo real gráficos de faturamento e destacar o "Serviço Mais Procurado". | Equipe Interna |
+| **RF08** | Filtro de Pets Ausentes | O sistema deve rastrear e listar animais sem registros de serviços há mais de 20 dias, com link direto de contato. | Recepcionista / Admin |
+| **RF09** | Log de Atividades | O sistema deve gerar registros automáticos (Logs) a cada inserção ou mudança de status realizada pela equipe. | Sistema / Admin |
+| **RF10** | Tela de Leitura do Tutor | O cliente, ao logar, deve visualizar qual funcionário está cuidando do seu pet, o status na linha do tempo e o histórico. | Cliente |
 
 ### 4.2 Requisitos Não-Funcionais (RNF)
 
-* **RNF01 - Segurança da Informação:** O sistema não deve armazenar senhas em texto limpo. Todas as credenciais de acesso devem ser criptografadas utilizando a função nativa `password_hash()` do PHP antes de serem salvas no banco de dados.
-* **RNF02 - Tecnologia e Persistência:** O backend do sistema deve ser desenvolvido inteiramente em PHP (versão 8.0 ou superior), utilizando a extensão PDO (PHP Data Objects) com o driver **pg_connect** para conexões seguras com o banco de dados **PostgreSQL**.
-* **RNF03 - Interface e Responsividade:** O frontend deve ser construído em HTML5 e CSS3. A interface do *Painel do Tutor* deve ser responsiva, adaptando-se perfeitamente a telas de smartphones.
-* **RNF04 - Integridade dos Dados:** O banco de dados deve utilizar restrições de chave estrangeira (`FOREIGN KEY`) com a cláusula `ON DELETE CASCADE` para garantir que, se um tutor for excluído, todos os seus pets e agendamentos vinculados sejam deletados automaticamente.
+* **RNF01 - Segurança:** Criptografia obrigatória de senhas no banco de dados utilizando a função nativa `password_hash()` do PHP.
+* **RNF02 - Tecnologia e Banco de Dados:** Backend construído em PHP 8+, utilizando a extensão PDO conectada a um banco de dados relacional PostgreSQL.
+* **RNF03 - Interface e Estética:** Front-end responsivo construído em HTML5 e CSS3 puro, utilizando componentes modernos de Grid e Flexbox para simular barras de progresso (Timeline) e painéis de indicadores (Cards).
+* **RNF04 - Integridade:** Uso de restrições relacionais (`FOREIGN KEY` com `ON DELETE CASCADE`) para garantir a consistência do banco de dados ao excluir registros pai.
 
+---
 
-## 5. *Modelagem de Dados* (Dicionário de dados e Diagrama Entidade-Relacionamento)
-* O dicionário de dados descreve a estrutura exata das tabelas do banco de dados MySQL, definindo os tipos de dados, restrições e o propósito de cada campo.
-
-```mermaid
-graph LR
-    %% Definição dos Atores
-    Admin((Administrador /<br>Funcionário))
-    Cliente((Cliente /<br>Tutor))
-
-    subgraph "Sistema Petshop"
-        %% Casos de Uso Comuns
-        UC_Login(Efetuar Login)
-        
-        %% Casos de Uso do Admin
-        UC_Tutor(Gerenciar Tutores CRUD)
-        UC_Pet(Gerenciar Pets CRUD)
-        UC_Servico(Gerenciar Serviços CRUD)
-        UC_Agenda(Gerenciar Agendamentos CRUD)
-        UC_Status(Alterar Status do Agendamento)
-        UC_Dash(Visualizar Agenda do Dia)
-        
-        %% Casos de Uso do Cliente
-        UC_VerAgenda(Visualizar Meus Agendamentos)
-        UC_VerHist(Visualizar Histórico dos Meus Pets)
-    end
-
-    %% Ligações do Administrador
-    Admin --> UC_Login
-    Admin --> UC_Tutor
-    Admin --> UC_Pet
-    Admin --> UC_Servico
-    Admin --> UC_Agenda
-    Admin --> UC_Status
-    Admin --> UC_Dash
-
-    %% Ligações do Cliente
-    Cliente --> UC_Login
-    Cliente --> UC_VerAgenda
-    Cliente --> UC_VerHist
-```
+## 5. Modelagem de Dados e Dicionário de Dados (PostgreSQL)
 
 ### 5.1 Tabela: `usuarios`
-Armazena os dados de acesso tanto dos funcionários (administradores) quanto dos clientes (tutores).
-
 | Campo | Tipo | Restrições | Descrição |
 | :--- | :--- | :--- | :--- |
-| `id` | SERIAL | PRIMARY KEY | Identificador único do usuário (Auto-incremento do Postgres). |
+| `id` | SERIAL | PRIMARY KEY | Identificador único do usuário. |
 | `nome` | VARCHAR(100) | NOT NULL | Nome completo do usuário. |
-| `email` | VARCHAR(100) | NOT NULL, UNIQUE | E-mail utilizado para login (não pode repetir). |
-| `senha` | VARCHAR(255) | NOT NULL | Senha criptografada (via password_hash). |
-| `telefone` | VARCHAR(20) | NULL | Telefone de contato. |
-| `tipo` | VARCHAR(20) | NOT NULL | Define o nível de privilégio ('admin' ou 'cliente'). |
-| `criado_em` | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data e hora de cadastro do registro. |
+| `email` | VARCHAR(100) | NOT NULL, UNIQUE | E-mail utilizado para login. |
+| `senha` | VARCHAR(255) | NOT NULL | Senha criptografada. |
+| `telefone` | VARCHAR(20) | NULL | Telefone com DDD (usado no Alerta de Retorno). |
+| `tipo` | VARCHAR(20) | NOT NULL CHECK... | Grupo de acesso: 'equipe' ou 'cliente'. |
+| `cargo` | VARCHAR(30) | NOT NULL CHECK... | Papel real: 'Veterinário', 'Tosador', 'Recepcionista', 'Cliente'. |
+| `criado_em` | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de cadastro do usuário. |
 
 ### 5.2 Tabela: `pets`
-Armazena os animais cadastrados, vinculando-os obrigatoriamente a um tutor (usuário).
-
 | Campo | Tipo | Restrições | Descrição |
 | :--- | :--- | :--- | :--- |
-| `id` | SERIAL | PRIMARY KEY | Identificador único do pet (Auto-incremento). |
-| `cliente_id` | INT | FOREIGN KEY (`usuarios.id`) | ID do tutor proprietário do animal. |
+| `id` | SERIAL | PRIMARY KEY | Identificador único do animal. |
+| `cliente_id` | INT | FOREIGN KEY (`usuarios.id`) | ID do tutor proprietário (Cascata). |
 | `nome` | VARCHAR(50) | NOT NULL | Nome do pet. |
-| `especie` | VARCHAR(30) | NOT NULL | Espécie do animal (ex: Cão, Gato, Ave). |
-| `raca` | VARCHAR(50) | NULL | Raça do animal. |
-| `data_nascimento`| DATE | NULL | Data de nascimento aproximada do pet. |
+| `especie` | VARCHAR(50) | NOT NULL | Espécie do animal (ex: Cão, Gato, Cobra, Furão). |
+| `raca` | VARCHAR(50) | DEFAULT 'SRD' | Raça do animal. |
+| `data_nascimento`| DATE | NULL | Data de nascimento. |
+| `comportamento` | VARCHAR(50) | DEFAULT 'Normal' | Marcador de humor/alerta (ex: 'Ansioso', 'Agressivo'). |
+| `foto` | VARCHAR(255) | DEFAULT 'default_pet.png' | Caminho da imagem de perfil do pet no servidor. |
 
 ### 5.3 Tabela: `servicos`
-Catálogo de serviços oferecidos pelo petshop e seus respectivos preços.
-
 | Campo | Tipo | Restrições | Descrição |
 | :--- | :--- | :--- | :--- |
-| `id` | SERIAL | PRIMARY KEY | Identificador único do serviço (Auto-incremento). |
-| `nome_servico` | VARCHAR(50) | NOT NULL | Nome do serviço (ex: Banho e Tosa). |
-| `preco` | NUMERIC(10,2) | NOT NULL | Valor cobrado pelo serviço (Tipo ideal para moedas no Postgres). |
+| `id` | SERIAL | PRIMARY KEY | Identificador único do serviço. |
+| `nome_servico` | VARCHAR(100) | NOT NULL | Nome do procedimento (ex: Banho Geral). |
+| `categoria` | VARCHAR(20) | NOT NULL CHECK... | Diferencia a área: 'estetica' ou 'clinica'. |
+| `preco` | NUMERIC(10,2) | NOT NULL | Valor financeiro cobrado pelo serviço. |
 
 ### 5.4 Tabela: `agendamentos`
-Registra os serviços marcados para os animais pelos funcionários.
-
 | Campo | Tipo | Restrições | Descrição |
 | :--- | :--- | :--- | :--- |
-| `id` | SERIAL | PRIMARY KEY | Identificador único do agendamento (Auto-incremento). |
-| `pet_id` | INT | FOREIGN KEY (`pets.id`) | ID do pet que receberá o atendimento. |
-| `servico_id` | INT | FOREIGN KEY (`servicos.id`) | ID do serviço a ser prestado. |
-| `data_hora` | TIMESTAMP | NOT NULL | Data e horário agendados. |
-| `status` | VARCHAR(20) | DEFAULT 'pendente' | Situação do atendimento ('pendente', 'concluido', 'cancelado'). |
+| `id` | SERIAL | PRIMARY KEY | Identificador único do agendamento. |
+| `pet_id` | INT | FOREIGN KEY (`pets.id`) | ID do pet que receberá o atendimento (Cascata). |
+| `servico_id` | INT | FOREIGN KEY (`servicos.id`) | ID do serviço/procedimento. |
+| `funcionario_id` | INT | FOREIGN KEY (`usuarios.id`) | ID do funcionário alocado para o atendimento. |
+| `data_hora` | TIMESTAMP | NOT NULL | Data e hora exata reservada. |
+| `status` | VARCHAR(30) | DEFAULT 'Agendado' | Controle da esteira: 'Agendado', 'Em Atendimento', 'Pronto para Retirada', 'Finalizado'. |
 
+### 5.5 Tabela: `mural_avisos`
+| Campo | Tipo | Restrições | Descrição |
+| :--- | :--- | :--- | :--- |
+| `id` | SERIAL | PRIMARY KEY | Identificador único do aviso. |
+| `usuario_id` | INT | FOREIGN KEY (`usuarios.id`) | ID do funcionário que publicou o aviso. |
+| `titulo` | VARCHAR(100) | NOT NULL | Título direto do recado. |
+| `conteudo` | TEXT | NOT NULL | Descrição detalhada do aviso interno. |
+| `data_publicacao`| TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Momento em que o aviso foi postado. |
 
-## 6. *Arquitetura do Software* (Padrão de projeto e estrutura de arquivos)
+### 5.6 Tabela: `log_atividades`
+| Campo | Tipo | Restrições | Descrição |
+| :--- | :--- | :--- | :--- |
+| `id` | SERIAL | PRIMARY KEY | Identificador único do registro de log. |
+| `usuario_id` | INT | FOREIGN KEY (`usuarios.id`) | ID do funcionário que realizou a ação. |
+| `acao` | TEXT | NOT NULL | Frase descritiva da ação realizada no sistema. |
+| `data_hora` | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data e hora exata do acontecimento. |
+
+---
 
 ## 6. Arquitetura do Software e Estrutura de Arquivos
 
-O projeto adota uma arquitetura modular baseada na separação de responsabilidades (conceito de Views e Actions). Essa abordagem garante que o código HTML (interface) não fique misturado com a lógica pesada de manipulação do banco de dados (PHP), facilitando a manutenção do sistema.
-
-### 6.1 Padrão de Projeto (Design Pattern)
-O sistema utiliza o padrão procedural estruturado com isolamento de ações através do método POST. 
-* **Views (Telas):** Arquivos que contêm HTML, CSS e apenas estruturas de repetição simples em PHP (`foreach`, `if`) para exibir os dados na tela.
-* **Actions (Ações):** Scripts PHP puros, sem HTML, responsáveis por receber os dados dos formulários, higienizá-los contra invasões (SQL Injection) e executar as operações no banco de dados.
-
-### 6.2 Estrutura do Diretório do Projeto
-
+### 6.1 Árvore do Diretório do Projeto
 
 ```text
 petshop/
 │
 ├── config/
-│   └── conexao.php          # Configuração do PDO e conexão com o MySQL
+│   └── conexao.php          # Configuração do PDO para conexão com o PostgreSQL
 │
 ├── includes/
-│   ├── header.php           # Barra de navegação e abertura do HTML (repetido)
-│   └── footer.php           # Rodapé, scripts JavaScript e fechamento do HTML (repetido)
+│   ├── header.php           # Cabeçalho global (Navbar com base no cargo logado)
+│   └── footer.php           # Rodapé global (Inclui os scripts e fechamentos)
 │
-├── assets/                  # Arquivos estáticos do sistema
+├── assets/                  # Arquivos estáticos de estilização e comportamento
 │   ├── css/
-│   │   └── style.css        # Estilização customizada do painel e site
-│   └── js/
-│       └── main.js          # Validações e comportamentos em JavaScript
+│   │   └── style.css        # Design customizado e responsivo do painel
+│   ├── js/
+│   │   └── main.js          # Controla elementos visuais dinâmicos da interface
+│   └── uploads/             # Pasta física que armazenará as fotos dos pets
 │
-├── views/                   # Interfaces do usuário (Restritas por Sessão)
-│   ├── login.php            # Tela de autenticação para Admin e Cliente
-│   ├── dashboard.php        # Painel principal do Admin (Agenda do Dia)
-│   ├── clientes.php         # Tela de CRUD (Cadastro/Listagem) de Clientes
-│   ├── pets.php             # Tela de CRUD (Cadastro/Listagem) de Pets
-│   ├── servicos.php         # Tela de CRUD (Cadastro/Listagem) de Serviços
-│   ├── novo-agendamento.php # Tela de marcação de banho/tosa
-│   └── painel-tutor.php     # Tela exclusiva do cliente (Visualização)
+├── views/                   # Telas do Sistema (Apenas visualização e formulários)
+│   ├── login.php            # Portal de acesso unificado
+│   ├── dashboard.php        # Painel Geral Admin (Gráficos, Alerta de Retorno e Logs)
+│   ├── clientes.php         # Gestão de Tutores (CRUD)
+│   ├── pets.php             # Gestão de Pets de todas as espécies (CRUD)
+│   ├── servicos.php         # Gestão de Serviços Clínicos e Estéticos (CRUD)
+│   ├── agendamentos.php     # Central de marcações vinculando profissionais
+│   ├── mural.php            # Interface do Mural de Avisos da equipe (CRUD Interno)
+│   └── painel-tutor.php     # Área exclusiva do cliente (Histórico e Linha do Tempo)
 │
-├── actions/                 # Scripts PHP de processamento de dados (Back-end)
-│   ├── login-action.php     # Processa o login e cria a $_SESSION
-│   ├── logout.php           # Destrói a sessão e desloga o usuário
-│   ├── cliente-action.php   # Processa o Insert/Update/Delete de clientes
-│   ├── pet-action.php       # Processa o Insert/Update/Delete de pets
-│   ├── servico-action.php   # Processa o Insert/Update/Delete de serviços
-│   └── agenda-action.php    # Processa novos agendamentos e alterações de status
-│
-└── index.php                # Página home institucional (Aberto ao público)
-
+└── actions/                 # Inteligência de Back-end (Scripts PHP puros)
+    ├── login-action.php     # Validação de credenciais e controle de sessão
+    ├── logout.php           # Encerramento seguro da sessão
+    ├── cliente-action.php   # Processa dados dos tutores e gera log
+    ├── pet-action.php       # Processa dados, faz o upload da foto e gera log
+    ├── servico-action.php   # Processa dados do catálogo de serviços e gera log
+    ├── agenda-action.php    # Processa agendamentos, atualiza a Timeline e gera log
+    └── mural-action.php     # Processa a inserção e exclusão de avisos e gera log
 
 ```
 
+---
 
+## 7. Mapeamento de Telas e Fluxo de Navegação
 
+###7.1 Mapeamento Visual e Componentes
 
+#### 1. views/dashboard.php (A Central Gerencial Adaptativa)
 
+Esta é a tela de maior impacto visual do projeto, organizada em uma malha (Grid) responsiva:
 
+* Bloco Superior (Cards de Indicadores): Pequenos quadros coloridos contendo o faturamento bruto do mês, o total de atendimentos do dia e um destaque para o "Serviço Mais Procurado" do mês corrente.
+* Bloco Lateral (Alerta de Retorno Ativo): Uma lista estilizada com os cards dos pets "sumidos" há mais de 20 dias. Cada linha exibirá a mini foto da espécie, o nome do pet, o telefone do tutor e um botão customizado do WhatsApp Web.
+* Bloco Inferior (Fita de Auditoria): Uma lista compacta de leitura rápida que exibe os últimos 5 registros de log_atividades, mostrando a transparência das ações da equipe no sistema.
+
+#### 2. views/painel-tutor.php (O Espaço do Cliente)
+Focado no minimalismo para o cliente final:
+
+* Meus Pets: Exibe cartões visuais para cada animal do cliente com sua respectiva foto de perfil, espécie e o marcador de comportamento/humor atual.
+* Esteira de Atendimento (Timeline Visual): Exibe uma barra de progresso horizontal que acende dinamicamente de acordo com o status atual do pet no estabelecimento, exibindo também o nome do profissional (ex: Dr. Roberto) que está cuidando do animal naquele momento: [Agendado] ➔ [Em Atendimento] ➔ [Pronto para Retirada] ➔ [Finalizado].
