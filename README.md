@@ -178,7 +178,7 @@ petshop/
 
 ## 7. Mapeamento de Telas e Fluxo de Navegação
 
-###7.1 Mapeamento Visual e Componentes
+### 7.1 Mapeamento Visual e Componentes
 
 #### 1. views/dashboard.php (A Central Gerencial Adaptativa)
 

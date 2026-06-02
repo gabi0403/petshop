@@ -1,0 +1,49 @@
+body {
+    background-color: #f8fafc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.icon-shape {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-light-success { background-color: #d1fae5; }
+.bg-light-primary { background-color: #dbeafe; }
+.bg-light-warning { background-color: #fef3c7; }
+
+.navbar {
+    background-color: #1e293b !important;
+}
+
+.btn-success {
+    background-color: #10b981;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #059669;
+}
+
+
+.timeline-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background-color: #e2e8f0;
+    z-index: 1;
+}
+
+.text-danger-hover:hover {
+    color: #dc3545 !important;
+}
