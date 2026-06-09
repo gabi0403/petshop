@@ -39,6 +39,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     <li class="nav-item"><a class="nav-link" href="clientes.php"><i class="fa-solid fa-users me-1"></i> Clientes</a></li>
                     <li class="nav-item"><a class="nav-link" href="pets.php"><i class="fa-solid fa-paw me-1"></i> Pets</a></li>
                     <li class="nav-item"><a class="nav-link" href="mural.php"><i class="fa-solid fa-clipboard-list me-1"></i> Mural</a></li>
+                    <li class="nav-item"><a class="nav-link" href="configuracoes.php"><i class="fa-solid fa-gear me-2"></i> Configurações</a></li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="painel-tutor.php"><i class="fa-solid fa-house-user me-1"></i> Meu Painel</a></li>
                 <?php endif; ?>

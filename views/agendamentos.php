@@ -24,7 +24,7 @@ $func_list  = $pdo->query("SELECT id, nome, cargo FROM usuarios WHERE tipo = 'eq
 
 <div class="py-2">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-secondary">Central de Agendamentos e Esteira Operacional</h2>
+        <h2 class="fw-bold text-secondary">Central de Agendamentos</h2>
         <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#modalAgenda">
             <i class="fa-solid fa-calendar-plus me-1"></i> Agendar Serviço
         </button>
@@ -40,13 +40,13 @@ $func_list  = $pdo->query("SELECT id, nome, cargo FROM usuarios WHERE tipo = 'eq
                         <th>Procedimento</th>
                         <th>Profissional Responsável</th>
                         <th>Status Atual</th>
-                        <th class="text-center">Atualizar Esteira</th>
+                        <th class="text-center">Ações / Atualizar Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if(empty($agendamentos)): ?>
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">Nenhum atendimento na esteira para os próximos períodos.</td>
+                            <td colspan="6" class="text-center text-muted py-4">Nenhum atendimento agendado para os próximos períodos.</td>
                         </tr>
                     <?php else: foreach($agendamentos as $agenda): 
                         // Cores dinâmicas para o status da esteira
@@ -64,17 +64,30 @@ $func_list  = $pdo->query("SELECT id, nome, cargo FROM usuarios WHERE tipo = 'eq
                             <td><?= $agenda['nome_servico'] ?></td>
                             <td><i class="fa-solid fa-user-doctor text-muted me-1"></i> <?= $agenda['func_nome'] ?: 'Não definido' ?></td>
                             <td><span class="badge <?= $status_class ?>"><?= $agenda['status'] ?></span></td>
+                            
+                            <!-- CÉLULA DE AÇÕES AJUSTADA -->
                             <td class="text-center">
-                                <form action="../actions/agenda-action.php?acao=alterar_status" method="POST" class="d-flex justify-content-center g-1">
-                                    <input type="hidden" name="agenda_id" value="<?= $agenda['id'] ?>">
-                                    <select class="form-select form-select-sm me-1" name="novo_status" style="width: 160px;">
-                                        <option value="Agendado" <?= $agenda['status'] == 'Agendado' ? 'selected' : '' ?>>Agendado</option>
-                                        <option value="Em Atendimento" <?= $agenda['status'] == 'Em Atendimento' ? 'selected' : '' ?>>Em Atendimento</option>
-                                        <option value="Pronto para Retirada" <?= $agenda['status'] == 'Pronto para Retirada' ? 'selected' : '' ?>>Pronto para Retirada</option>
-                                        <option value="Finalizado" <?= $agenda['status'] == 'Finalizado' ? 'selected' : '' ?>>Finalizado</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-sm btn-dark"><i class="fa-solid fa-rotate"></i></button>
-                                </form>
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <!-- Formulário de Mudança de Status -->
+                                    <form action="../actions/agenda-action.php?acao=alterar_status" method="POST" class="d-flex g-1 mb-0">
+                                        <input type="hidden" name="agenda_id" value="<?= $agenda['id'] ?>">
+                                        <select class="form-select form-select-sm me-1" name="novo_status" style="width: 160px;">
+                                            <option value="Agendado" <?= $agenda['status'] == 'Agendado' ? 'selected' : '' ?>>Agendado</option>
+                                            <option value="Em Atendimento" <?= $agenda['status'] == 'Em Atendimento' ? 'selected' : '' ?>>Em Atendimento</option>
+                                            <option value="Pronto para Retirada" <?= $agenda['status'] == 'Pronto para Retirada' ? 'selected' : '' ?>>Pronto para Retirada</option>
+                                            <option value="Finalizado" <?= $agenda['status'] == 'Finalizado' ? 'selected' : '' ?>>Finalizado</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-dark" title="Atualizar Status"><i class="fa-solid fa-rotate"></i></button>
+                                    </form>
+
+                                    <!-- NOVO: Botão de Excluir Registro -->
+                                    <a href="../actions/agenda-action.php?acao=deletar&id=<?= $agenda['id'] ?>" 
+                                       class="btn btn-sm btn-outline-danger" 
+                                       onclick="return confirm('Deseja realmente excluir este registro de agendamento?')"
+                                       title="Excluir Agendamento">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; endif; ?>

@@ -21,7 +21,6 @@ $clientes = $pdo->query($sql)->fetchAll();
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold text-secondary mb-1">Controle de Clientes (Tutores)</h2>
-            <p class="text-muted small">Gerenciamento de tutores integrados ao ecossistema.</p>
         </div>
         <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#modalCliente">
             <i class="fa-solid fa-user-plus me-1"></i> Adicionar Cliente

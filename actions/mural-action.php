@@ -12,15 +12,18 @@ $acao = $_GET['acao'] ?? '';
 if ($acao === 'cadastrar' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo   = trim($_POST['titulo']);
     $conteudo = trim($_POST['conteudo']);
+    $urgencia = $_POST['urgencia'] ?? 'baixa'; // NOVO CAMPO RECOLHIDO
     $user_id  = $_SESSION['usuario_id'];
 
     try {
-        $sql = "INSERT INTO mural_avisos (usuario_id, titulo, conteudo) VALUES (:user_id, :titulo, :conteudo)";
+        // SQL ajustado para incluir a coluna urgencia na tabela real
+        $sql = "INSERT INTO mural_avisos (usuario_id, titulo, conteudo, urgencia) VALUES (:user_id, :titulo, :conteudo, :urgencia)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':user_id'  => $user_id,
             ':titulo'   => $titulo,
-            ':conteudo' => $conteudo
+            ':conteudo' => $conteudo,
+            ':urgencia' => $urgencia
         ]);
 
         header("Location: ../views/mural.php");

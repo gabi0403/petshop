@@ -41,7 +41,7 @@ if ($acao === 'agendar' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// --- ALTERAR STATUS DA ESTEIRA (TIMELINE) ---
+// --- ALTERAR STATUS (TIMELINE) ---
 if ($acao === 'alterar_status' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $agenda_id   = $_POST['agenda_id'];
     $novo_status = $_POST['novo_status'];
@@ -65,6 +65,21 @@ if ($acao === 'alterar_status' && $_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../views/agendamentos.php");
         exit;
     } catch (PDOException $e) {
-        die("Erro ao atualizar esteira: " . $e->getMessage());
+        die("Erro ao atualizar status: " . $e->getMessage());
+    }
+}
+
+// --- DELETAR AGENDAMENTO ---
+if ($acao === 'deletar') {
+    $id = $_GET['id'];
+
+    try {
+        $stmt = $pdo->prepare("DELETE FROM agendamentos WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+
+        header("Location: ../views/agendamentos.php");
+        exit;
+    } catch (PDOException $e) {
+        die("Erro ao remover agendamento: " . $e->getMessage());
     }
 }

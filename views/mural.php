@@ -31,19 +31,38 @@ $avisos = $pdo->query($sql)->fetchAll();
             <div class="col-12 text-center py-5">
                 <p class="text-muted fs-5">Nenhum aviso operacional fixado hoje.</p>
             </div>
-        <?php else: foreach($avisos as $aviso): ?>
+        <?php else: foreach($avisos as $aviso): 
+            // Definição dinâmica das cores dos Cards baseada na Urgência
+            switch($aviso['urgencia'] ?? 'baixa') {
+                case 'alta':
+                    $cor_borda = '#e74c3c'; // Vermelho
+                    $badge_urgencia = '<span class="badge bg-danger mb-2"><i class="fa-solid fa-triangle-exclamation animate__animated animate__flash animate__infinite me-1"></i> Crítico</span>';
+                    break;
+                case 'media':
+                    $cor_borda = '#f39c12'; // Laranja / Amarelo escuro
+                    $badge_urgencia = '<span class="badge bg-warning text-dark mb-2">Importante</span>';
+                    break;
+                default:
+                    $cor_borda = '#3498db'; // Azul info
+                    $badge_urgencia = '<span class="badge bg-info text-dark mb-2">Geral</span>';
+                    break;
+            }
+        ?>
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm bg-white" style="border-left: 5px solid #f1c40f !important;">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="fw-bold text-dark mb-0"><?= htmlspecialchars($aviso['titulo']) ?></h5>
+                <div class="card h-100 border-0 shadow-sm bg-white" style="border-left: 5px solid <?= $cor_borda ?> !important;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <div>
+                                <?= $badge_urgencia ?>
+                                <h5 class="fw-bold text-dark mb-0"><?= htmlspecialchars($aviso['titulo']) ?></h5>
+                            </div>
                             <a href="../actions/mural-action.php?acao=deletar&id=<?= $aviso['id'] ?>" 
                                class="text-muted text-danger-hover ms-2" 
                                onclick="return confirm('Deseja retirar este aviso do mural?')">
                                 <i class="fa-solid fa-xmark"></i>
                             </a>
                         </div>
-                        <p class="text-secondary small mb-4" style="white-space: pre-line;">
+                        <p class="text-secondary small my-3" style="white-space: pre-line; flex-grow: 1;">
                             <?= htmlspecialchars($aviso['conteudo']) ?>
                         </p>
                         <div class="border-top pt-2 mt-auto">
@@ -76,6 +95,14 @@ $avisos = $pdo->query($sql)->fetchAll();
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Título do Alerta</label>
                         <input type="text" class="form-control" name="titulo" placeholder="ex: Restrição Alimentar / Falta de Insumo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nível de Urgência / Gravidade</label>
+                        <select class="form-select" name="urgencia" required>
+                            <option value="baixa">ℹ️ Baixa (Recados Gerais)</option>
+                            <option value="media">⚠️ Média (Avisos Importantes)</option>
+                            <option value="alta">🚨 Alta (Crítico / Atenção Imediata)</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Descrição do Recado</label>
