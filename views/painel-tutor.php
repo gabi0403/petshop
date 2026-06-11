@@ -30,7 +30,7 @@ $atendimentos_ativos = $stmt_linha->fetchAll(); // Trocado para fetchAll()
 // Mapeamento numérico dos status para acender as bolinhas da Timeline
 $passos = ['Agendado' => 1, 'Em Atendimento' => 2, 'Pronto para Retirada' => 3];
 
-// 3. Busca o histórico de procedimentos já FINALIZADOS
+// 3. Busca o histórico de procedimentos já finalizados
 $sql_historico = "SELECT a.data_hora, p.nome as pet_nome, s.nome_servico, s.preco
                   FROM agendamentos a
                   JOIN pets p ON a.pet_id = p.id
@@ -74,7 +74,7 @@ $historico = $stmt_hist->fetchAll();
                 </div>
             </div>
 
-            <!-- Trilho Visual do Progresso para ESTE pet -->
+            <!-- Trilho Visual do Progresso para este pet -->
             <div class="d-flex justify-content-between align-items-center position-relative my-4 px-5 timeline-horizontal">
                 <div class="text-center position-relative" style="z-index: 2;">
                     <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto <?= $passo_atual >= 1 ? 'bg-primary text-white shadow' : 'bg-light text-muted border' ?>" style="width: 45px; height: 45px; font-weight: bold;">1</div>

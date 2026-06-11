@@ -9,7 +9,7 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_tipo'] !== 'equipe') {
 
 $acao = $_GET['acao'] ?? '';
 
-// --- OPERAÇÃO: CADASTRAR CLIENTE ---
+// --- CADASTRAR CLIENTE ---
 if ($acao === 'cadastrar' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome     = trim($_POST['nome']);
     $email    = trim($_POST['email']);
@@ -30,7 +30,7 @@ if ($acao === 'cadastrar' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             ':telefone' => $telefone
         ]);
 
-        // Grava no Log de Auditoria
+        // Grava no Log de auditoria
         $log = $pdo->prepare("INSERT INTO log_atividades (usuario_id, acao) VALUES (:uid, :acao)");
         $log->execute([
             ':uid'  => $_SESSION['usuario_id'],
@@ -44,7 +44,7 @@ if ($acao === 'cadastrar' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// --- OPERAÇÃO: DELETAR CLIENTE ---
+// --- DELETAR CLIENTE ---
 if ($acao === 'deletar') {
     $id = $_GET['id'];
     try {

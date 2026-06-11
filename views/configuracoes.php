@@ -13,6 +13,24 @@ $servicos = $pdo->query("SELECT * FROM servicos ORDER BY nome_servico ASC")->fet
 // 2. Busca todos os membros da equipe (usuarios do tipo equipe)
 $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE tipo = 'equipe' ORDER BY nome ASC")->fetchAll();
 ?>
+<?php if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'senha_resetada'): ?>
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+        <i class="fa-solid fa-circle-check text-success me-2"></i> <strong>Senha resetada com sucesso!</strong> A nova credencial temporária deste usuário é <code>123456</code>.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_GET['erro'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+        <i class="fa-solid fa-circle-xmark text-danger me-2"></i> 
+        <strong>Erro na operação:</strong> 
+        <?php 
+            if($_GET['erro'] === 'auto_reset') echo "Você não pode resetar a sua própria senha. Use o menu 'Senha' no topo do site.";
+            else echo "Não foi possível completar o reset. Tente novamente.";
+        ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 
 <div class="py-2">
     <div class="mb-4">
@@ -62,7 +80,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
                                         <a href="../actions/config-action.php?acao=deletar_servico&id=<?= $s['id'] ?>" 
                                            class="btn btn-sm btn-outline-danger" 
                                            onclick="return confirm('Excluir este serviço impedirá novos agendamentos para ele. Confirmar?')" title="Excluir">
-                                            <i class="fa-solid fa-trash"></i>
+                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -72,7 +90,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
                                         <div class="modal-content border-0 shadow">
                                             <div class="modal-header bg-dark text-white">
                                                 <h6 class="modal-title fw-bold">Ajustar Preço</h6>
-                                                <button type="button" class="btn-close btn-close-white" data-bs-toggle="modal"></button>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                                             </div>
                                             <form action="../actions/config-action.php?acao=editar_servico" method="POST">
                                                 <input type="hidden" name="id" value="<?= $s['id'] ?>">
@@ -103,7 +121,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
         <div class="tab-pane fade" id="equipe-pane" role="tabpanel" tabindex="0">
             <div class="card border-0 shadow-sm p-4 bg-white">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold text-secondary mb-0">Corpo Técnico e Atendentes</h5>
+                    <h5 class="fw-bold text-secondary mb-0">Funcionários</h5>
                     <button class="btn btn-sm btn-dark rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#modalNovaEquipe">
                         <i class="fa-solid fa-user-plus me-1"></i> Adicionar Membro
                     </button>
@@ -115,7 +133,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
                                 <th>Nome Completo</th>
                                 <th>E-mail (Login)</th>
                                 <th>Cargo / Função</th>
-                                <th class="text-center" style="width: 100px;">Remover</th>
+                                <th class="text-center" style="width: 220px;">Ações de Segurança</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,13 +151,23 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
                                     <td><span class="badge bg-light text-secondary border"><?= htmlspecialchars($e['cargo']) ?></span></td>
                                     <td class="text-center">
                                         <?php if($e['id'] != $_SESSION['usuario_id']): ?>
+                                            
+                                            <a href="../actions/resetar-senha-action.php?id=<?= $e['id'] ?>" 
+                                               class="btn btn-sm btn-outline-warning me-1" 
+                                               title="Resetar Senha para Padrão (123456)"
+                                               onclick="return confirm('Tem certeza que deseja resetar a senha de <?= htmlspecialchars($e['nome']) ?> para o padrão (123456)?')">
+                                                <i class="fa-solid fa-rotate-left"></i>
+                                            </a>
+
                                             <a href="../actions/config-action.php?acao=deletar_equipe&id=<?= $e['id'] ?>" 
                                                class="btn btn-sm btn-outline-danger" 
+                                               title="Remover Acessos"
                                                onclick="return confirm('Deseja mesmo remover os acessos deste funcionário?')">
                                                 <i class="fa-solid fa-user-minus"></i>
                                             </a>
+                                            
                                         <?php else: ?>
-                                            <span class="text-muted small italic">Você</span>
+                                            <span class="text-muted small italic">Sua Conta (Gerenciar no Topo)</span>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -158,7 +186,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
         <div class="modal-content border-0 shadow">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title fw-bold">Cadastrar Novo Serviço</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-toggle="modal"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form action="../actions/config-action.php?acao=cadastrar_servico" method="POST">
                 <div class="modal-body">
@@ -180,7 +208,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Adicionar no Catálogo</button>
                 </div>
             </form>
@@ -193,7 +221,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
         <div class="modal-content border-0 shadow">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title fw-bold">Adicionar Profissional à Equipe</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-toggle="modal"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form action="../actions/config-action.php?acao=cadastrar_equipe" method="POST">
                 <div class="modal-body">
@@ -223,7 +251,7 @@ $equipe = $pdo->query("SELECT id, nome, email, cargo, tipo FROM usuarios WHERE t
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-dark">Confirmar Contratação</button>
                 </div>
             </form>

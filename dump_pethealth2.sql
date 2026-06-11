@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict O0twAAOhWch8mLlt0HrsXigNATc80jS83RNSoTgMca42QhaEfn2fJa75Bjgc6lL
+\restrict y6e9wy9LGMA7aPsVmsMm7jyeOBkdJlnHLDfLfudweSpriup28kiHWvdbUeacBPh
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -305,6 +305,8 @@ COPY public.agendamentos (id, pet_id, servico_id, funcionario_id, data_hora, sta
 25	14	7	11	2026-06-18 16:40:00	Agendado
 26	11	1	11	2026-06-09 16:44:00	Em Atendimento
 27	7	2	22	2026-06-10 16:51:00	Pronto para Retirada
+28	15	7	11	2026-06-16 11:28:00	Agendado
+29	4	1	22	2026-06-10 11:28:00	Agendado
 \.
 
 
@@ -431,12 +433,43 @@ COPY public.log_atividades (id, usuario_id, acao, data_hora) FROM stdin;
 116	11	Camila Silva Tosadora (Tosador) moveu o status do atendimento #26 para 'Em Atendimento'.	2026-06-09 16:45:11.909444
 117	11	Cadastrou o pet 'Luli' (Cão) para o tutor de ID 17.	2026-06-09 16:46:34.294024
 118	17	O usuário Emely (Atendente) realizou login no sistema.	2026-06-09 16:48:31.736628
-119	21	O usuário Gley (Auxiliar de Veterinário) realizou login no sistema.	2026-06-09 16:50:12.703753
-120	21	Inseriu um novo agendamento na esteira para o pet ID 7 em 10/06/16:51	2026-06-09 16:51:03.529942
-121	21	Gley (Auxiliar de Veterinário) moveu o status do atendimento #27 para 'Pronto para Retirada'.	2026-06-09 16:51:09.325862
 122	13	O usuário Evelyn (Atendente) realizou login no sistema.	2026-06-09 16:51:22.35023
 123	17	O usuário Emely (Cliente) realizou login no sistema.	2026-06-09 16:58:16.074358
 124	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-09 16:58:25.00818
+125	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 08:13:46.486765
+126	12	O usuário Carlos Tutor (Cliente) realizou login no sistema.	2026-06-11 08:14:35.390481
+127	10	O usuário Dr. Roberto Garcia (Veterinário) realizou login no sistema.	2026-06-11 08:14:52.177203
+128	12	O usuário Carlos Tutor (Cliente) realizou login no sistema.	2026-06-11 08:26:20.578528
+129	10	O usuário Dr. Roberto Garcia (Veterinário) realizou login no sistema.	2026-06-11 08:26:30.203065
+130	10	O usuário Dr. Roberto Garcia (Veterinário) realizou login no sistema.	2026-06-11 08:58:12.715724
+131	12	O usuário Carlos Tutor (Cliente) realizou login no sistema.	2026-06-11 09:07:00.007348
+132	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 09:08:38.874369
+133	12	O usuário Carlos Tutor (Cliente) realizou login no sistema.	2026-06-11 09:49:11.998471
+134	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 09:49:22.124078
+135	12	O usuário Carlos Tutor (Cliente) realizou login no sistema.	2026-06-11 10:15:19.534072
+136	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 10:15:38.811615
+137	10	O usuário Dr. Roberto Garcia (Veterinário) realizou login no sistema.	2026-06-11 10:19:38.16764
+139	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 10:28:17.293497
+140	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 10:51:01.141371
+141	12	O usuário Carlos Tutor (Cliente) realizou login no sistema.	2026-06-11 10:51:35.891263
+142	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 10:58:36.347953
+143	25	O usuário Gerente (Gerente) realizou login no sistema.	2026-06-11 10:59:20.777054
+144	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 11:10:13.76943
+145	25	O usuário Gerente (Gerente) realizou login no sistema.	2026-06-11 11:11:42.463555
+146	11	O usuário Camila Silva Tosadora (Tosador) realizou login no sistema.	2026-06-11 11:13:35.167307
+147	25	O usuário Gerente (Gerente) realizou login no sistema.	2026-06-11 11:16:08.09004
+119	\N	O usuário Gley (Auxiliar de Veterinário) realizou login no sistema.	2026-06-09 16:50:12.703753
+120	\N	Inseriu um novo agendamento na esteira para o pet ID 7 em 10/06/16:51	2026-06-09 16:51:03.529942
+121	\N	Gley (Auxiliar de Veterinário) moveu o status do atendimento #27 para 'Pronto para Retirada'.	2026-06-09 16:51:09.325862
+138	\N	O usuário Teste 2 senha (Veterinário) realizou login no sistema.	2026-06-11 10:27:58.984816
+148	25	Cadastrou o novo cliente tutor: 'Gabriela' (Email: gabi@gmail.com).	2026-06-11 11:21:41.93983
+149	25	Cadastrou o pet 'Afonso' (Papagaio) para o tutor de ID 26.	2026-06-11 11:25:35.590007
+150	25	Cadastrou o pet 'Afonso' (Papagaio) para o tutor de ID 26.	2026-06-11 11:26:25.964672
+151	25	Removeu o cliente de ID #26 do sistema.	2026-06-11 11:27:32.005789
+152	25	Cadastrou o novo cliente tutor: 'gabi' (Email: gabi@gmail.com).	2026-06-11 11:28:02.543528
+153	25	Inseriu um novo agendamento na esteira para o pet ID 15 em 16/06/11:28	2026-06-11 11:28:19.398096
+154	25	Inseriu um novo agendamento na esteira para o pet ID 4 em 10/06/11:28	2026-06-11 11:28:29.867212
+155	25	Cadastrou o pet 'afonso' (Papagaio) para o tutor de ID 27.	2026-06-11 11:29:01.449661
 \.
 
 
@@ -461,6 +494,7 @@ COPY public.pets (id, cliente_id, nome, especie, raca, data_nascimento, comporta
 13	12	Nevinha	Urso	Ursus Maritimus	2016-02-09	Amigável	pet_6a286bd145f074.09677849.jpg
 14	12	Tubinho	Tubarao	SRD	2023-05-07	Normal	pet_6a286bf63d6f27.26225405.jpg
 15	17	Luli	Cão	Shih tzu	2015-04-25	Amigável	default_pet.png
+18	27	afonso	Papagaio	SRD	2026-06-09	Normal	pet_6a2ac62d695215.84433548.jpg
 \.
 
 
@@ -481,13 +515,14 @@ COPY public.servicos (id, nome_servico, categoria, preco) FROM stdin;
 
 COPY public.usuarios (id, nome, email, senha, telefone, tipo, cargo, criado_em) FROM stdin;
 10	Dr. Roberto Garcia	roberto@pethealth.com	$2y$12$3key25sToVzbrNruymm9gOYLnhzrTKWy00q8VimhISU7hP69t6q8i	11999999991	equipe	Veterinário	2026-06-02 16:51:57.395578
-11	Camila Silva Tosadora	camila@pethealth.com	$2y$12$3key25sToVzbrNruymm9gOYLnhzrTKWy00q8VimhISU7hP69t6q8i	11999999992	equipe	Tosador	2026-06-02 16:51:57.395578
 20	Rebecca	rebecca@gmail.com	$2y$12$dmZQ5K44Y1PCDJmpATWAPe.TCyaEbO67eGQEiGNeD/t9jpltK2Cb.	\N	equipe	Recepcionista	2026-06-09 16:24:53.808677
-12	Carlos Tutor	cliente@gmail.com	$2y$12$3key25sToVzbrNruymm9gOYLnhzrTKWy00q8VimhISU7hP69t6q8i	11988888888	cliente	Cliente	2026-06-02 16:51:57.395578
 13	Evelyn	evelyn@gmail.com	$2y$12$O0XhlAj6qAyOaZ/q0GQT5eqBPOv1bP5QmxOlkILGxECcjl8pS6jNW	191234567	cliente	Cliente	2026-06-02 17:01:20.52163
 17	Emely	emely@gmail	$2y$12$ifEUUlvV.AuKhBQyH40.0uMSKi0rBYSXmZ.m93ssMIjOdj2Ynn5dK	123	cliente	Cliente	2026-06-09 14:25:19.062515
-21	Gley	gley@gmail.com	$2y$12$sgk.1jixsG6vPI1FJVrK1O61xNdnN1SpcLaD6OlYbA.l2CvLIP76G	\N	equipe	Atendente	2026-06-09 16:32:24.233548
 22	Gabriela	gabriela.machado6@pethhealt	$2y$12$qwb7aiRtAuaYWZQEuHAPu.UiBMjMpT8shkFCRZL4u0EaLtu0tq.bO	\N	equipe	Atendente	2026-06-09 16:48:11.992422
+11	Camila Silva Tosadora	camila@pethealth.com	$2y$12$LvZVCwP723lFYl2gy35L3u5v5TfQCuh9vbfnF5TsRwKOuhXUD0BS6	11999999992	equipe	Tosador	2026-06-02 16:51:57.395578
+12	Carlos Tutor	cliente@gmail.com	$2y$12$6IrclCmFAZe6RnbXxrEVLuASM1zg46ZK5PU102kphp1GwxMLEx1D6	11988888888	cliente	Cliente	2026-06-02 16:51:57.395578
+25	Gerente	gerente@g	$2y$12$z8cAwZnfwu./Z/1WTqUrN..GsZJFlDQf3F8KpfuDgSBNeV4ShQWwe	\N	equipe	Gerente	2026-06-11 10:59:01.525857
+27	gabi	gabi@gmail.com	$2y$12$MFLgO3121SPQBWf2kuSvtetFuaWgfqN07SzpnFLVxkKtmM4Of0za2	19998845136	cliente	Cliente	2026-06-11 11:28:02.533322
 \.
 
 
@@ -495,14 +530,14 @@ COPY public.usuarios (id, nome, email, senha, telefone, tipo, cargo, criado_em) 
 -- Name: agendamentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.agendamentos_id_seq', 27, true);
+SELECT pg_catalog.setval('public.agendamentos_id_seq', 29, true);
 
 
 --
 -- Name: log_atividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.log_atividades_id_seq', 124, true);
+SELECT pg_catalog.setval('public.log_atividades_id_seq', 155, true);
 
 
 --
@@ -516,7 +551,7 @@ SELECT pg_catalog.setval('public.mural_avisos_id_seq', 6, true);
 -- Name: pets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pets_id_seq', 15, true);
+SELECT pg_catalog.setval('public.pets_id_seq', 18, true);
 
 
 --
@@ -530,7 +565,7 @@ SELECT pg_catalog.setval('public.servicos_id_seq', 7, true);
 -- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_seq', 22, true);
+SELECT pg_catalog.setval('public.usuarios_id_seq', 27, true);
 
 
 --
@@ -641,5 +676,5 @@ ALTER TABLE ONLY public.mural_avisos
 -- PostgreSQL database dump complete
 --
 
-\unrestrict O0twAAOhWch8mLlt0HrsXigNATc80jS83RNSoTgMca42QhaEfn2fJa75Bjgc6lL
+\unrestrict y6e9wy9LGMA7aPsVmsMm7jyeOBkdJlnHLDfLfudweSpriup28kiHWvdbUeacBPh
 

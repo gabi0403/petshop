@@ -14,7 +14,7 @@ $acao = $_GET['acao'] ?? '';
 
 if ($acao === 'cadastrar_servico' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_servico = trim($_POST['nome_servico']);
-    $categoria    = trim($_POST['categoria']); // RECOLHENDO A CATEGORIA
+    $categoria    = trim($_POST['categoria']);
     $preco        = floatval($_POST['preco']);
 
     try {

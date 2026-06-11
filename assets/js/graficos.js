@@ -1,47 +1,43 @@
-// ENGINE DE RENDERIZAÇÃO DE GRÁFICOS
+// ============================================================================
+// ENGINE DE RENDERIZAÇÃO: GRÁFICO DE DEMANDA (PIZZA / ROSCA)
+// ============================================================================
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Captura o elemento canvas do Dashboard
-    const canvasFaturamento = document.getElementById('graficoFaturamento');
+    // 1. Captura o elemento onde o gráfico será renderizado
+    const canvasServicos = document.getElementById('graficoServicos');
     
-    // Proteção: Só executa o script se o canvas realmente existir na página atual
-    if (canvasFaturamento) {
-        const ctx = canvasFaturamento.getContext('2d');
+    // Proteção de segurança: Só executa se o elemento existir nesta tela
+    if (canvasServicos) {
+        const ctx = canvasServicos.getContext('2d');
         
+        // 2. Criamos o gráfico usando a biblioteca Chart.js
         new Chart(ctx, {
-            type: 'line',
+            type: 'doughnut', // gráfico em estilo pizza 
             data: {
-                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                // As etiquetas vêm das categorias do banco (Clínica, Estética, Outros)
+                labels: window.dadosGraficoLabels || ['Clínica', 'Estética', 'Outros'],
                 datasets: [{
-                    label: 'Atendimentos Semanais',
-                    data: [15, 22, 18, 29, 25, 38], // Massa de dados simulada para a evolução
-                    borderColor: '#3498db',
-                    backgroundColor: 'rgba(52, 152, 219, 0.08)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4, // Curvatura elegante da linha
-                    pointBackgroundColor: '#2980b9',
-                    pointRadius: 4
+                    label: 'Quantidade de Serviços',
+                    // Os valores reais calculados pelo SQL no PHP
+                    data: window.dadosGraficoValores || [0, 0, 0], 
+                    backgroundColor: [
+                        '#3498db', // Azul pra clínica
+                        '#2ecc71', // Verde pra estética
+                        '#9b59b6'  // Roxo pra outros
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff' // Espaçamento branco entre as fatias
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false, // Permite que ele se ajuste ao tamanho do card
                 plugins: {
                     legend: {
-                        display: false // Esconde a legenda para um visual mais clean
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.04)' // Linhas de fundo bem suaves
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false // Remove as linhas verticais do fundo
+                        position: 'bottom', // Move as legendas para baixo para dar mais espaço
+                        labels: {
+                            font: { size: 13 },
+                            usePointStyle: true // Transforma os quadrados da legenda em círculos
                         }
                     }
                 }

@@ -41,7 +41,7 @@ if ($acao === 'agendar' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// --- ALTERAR STATUS (TIMELINE) ---
+// --- ALTERAR STATUS  ---
 if ($acao === 'alterar_status' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $agenda_id   = $_POST['agenda_id'];
     $novo_status = $_POST['novo_status'];

@@ -101,7 +101,7 @@ $avisos = $pdo->query($sql)->fetchAll();
                         <select class="form-select" name="urgencia" required>
                             <option value="baixa">ℹ️ Baixa (Recados Gerais)</option>
                             <option value="media">⚠️ Média (Avisos Importantes)</option>
-                            <option value="alta">🚨 Alta (Crítico / Atenção Imediata)</option>
+                            <option value="alta">🚨 Alta (Crítico)</option>
                         </select>
                     </div>
                     <div class="mb-3">
