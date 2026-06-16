@@ -150,7 +150,7 @@ petshop/
     ├── agenda-action.php    # Cria agendamentos e atualiza os passos da linha do tempo
     ├── resetar-senha-action.php    # Reseta a senha do usuário pra 123456 (Apenas o Gerente pode)
     └── mural-action.php     # Publica recados com urgência ou limpa o quadro de avisos
-
+```
 ---
 
 ## 7. Como as Telas Funcionam na Prática
@@ -183,6 +183,8 @@ Entre na pasta do projeto:
 
 cd petshop
 
+--- 
+
 ### 8.2 Pré-requisitos
 Tenha instalado no computador:
 
@@ -193,6 +195,8 @@ Verifique se os comandos funcionam no terminal:
 
 php -v
 psql --version
+
+--- 
 
 ### 8.3 Criar o Banco de Dados
 
@@ -208,12 +212,15 @@ Importe o dump:
 
 psql -h localhost -p 5432 -U postgres -d petshop_php -f config/dump_pethealth2.sql
 
+--- 
 
 ### 8.4 Rodar o Projeto
 
 Na pasta raiz do projeto:
 
 php -S 127.0.0.1:8080
+
+--- 
 
 ### 8.5 Acessar no Navegador
 
