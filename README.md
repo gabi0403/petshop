@@ -174,23 +174,57 @@ Uma tela pensada para trazer paz de espírito para o cliente. Ela exibe os cart�
 
 ---
 
-## 8. Como Rodar o Projeto na Sua Máquina
+## 8. Como Executar o Projeto
 
-Siga este guia simples passo a passo para colocar a plataforma **PetHealth & Care** para rodar localmente.
+### 8.1 Clonar o Repositório
+git clone https://github.com/gabi0403/petshop.git
 
-### 📋 O que você precisa instalado:
-1. Um ambiente PHP local (como XAMPP, WampServer ou Laragon) rodando PHP 8.0 ou superior.
-2. O banco de dados PostgreSQL instalado no seu sistema.
+Entre na pasta do projeto:
 
----
+cd petshop
 
-### 🚀 Passo 1: Organizando as pastas
-Mova ou copie a pasta completa do seu projeto `petshop/` para dentro do diretório de arquivos públicos do seu servidor local:
-* Se usa o XAMPP: coloque em `C:\xampp\htdocs\petshop\`
-* Se usa o WampServer: coloque em `C:\wamp64\www\petshop\`
+### 8.2 Pré-requisitos
+Tenha instalado no computador:
 
-### 💾 Passo 2: Criando a Base de Dados
-Abra a linha de comando do seu sistema (Prompt de Comando / Terminal) ou o shell interativo do Postgres (`psql`) e crie uma base de dados vazia executando o comando:
+PHP 8+
+PostgreSQL
 
-```sql
-CREATE DATABASE pethealth;
+Verifique se os comandos funcionam no terminal:
+
+php -v
+psql --version
+
+### 8.3 Criar o Banco de Dados
+
+O dump do banco está em:
+
+config/dump_pethealth2.sql
+
+Crie o banco:
+
+createdb -h localhost -p 5432 -U postgres petshop_php
+
+Importe o dump:
+
+psql -h localhost -p 5432 -U postgres -d petshop_php -f config/dump_pethealth2.sql
+
+
+### 8.4 Rodar o Projeto
+
+Na pasta raiz do projeto:
+
+php -S 127.0.0.1:8080
+
+### 8.5 Acessar no Navegador
+
+Abra: http://10.87.38.10:8080/index.php
+
+Credenciais de Teste
+
+Administrador
+Login: roberto@pethealth.com
+Senha: 123456
+
+Cliente
+Login: cliente@gmail.com
+Senha: 123456
